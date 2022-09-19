@@ -9,13 +9,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let searchController = UISearchController()
+    var searchController = UISearchController()
+    var tableView = UITableView()
    
+    let names = [ "Mark Gray" , "Hans Izabel" , "Marki Vladimir"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupNavigationBar()
-      
+        setupTableView()
+        
         view.backgroundColor = .black
     }
     
@@ -48,6 +52,23 @@ class ViewController: UIViewController {
       
     }
     
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        tableView.backgroundColor = .black
+        
+        view.addSubview(tableView)
+        
+        NSLayoutConstraint.activate([
+                    tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                    tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                    tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                    tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+                ])
+    }
+    
   
 
     @objc func buttonClicked() {
@@ -55,4 +76,28 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.backgroundColor = .black
+        cell.textLabel?.text = names[indexPath.row]
+        cell.textLabel?.textColor = .white
+        
+        
+        let bgColor = UIView()
+        bgColor.backgroundColor = UIColor.darkGray
+        cell.selectedBackgroundView = bgColor
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return names.count
+    }
+}
 
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+}
