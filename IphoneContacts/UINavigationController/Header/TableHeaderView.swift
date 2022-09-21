@@ -42,7 +42,7 @@ class TableHeaderView : UIView {
         }
     
     private func setupView() {
-        nameLabel.textColor = .systemBackground
+        nameLabel.textColor = .white
         cardLabel.textColor = .systemGray
     }
     

@@ -34,16 +34,16 @@ class ViewController: UIViewController {
     private func setupNavigationBar() {
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Kişiler"
+        navigationItem.title = "Contacts"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(buttonClicked))
         
-        searchController.searchBar.placeholder = "Ara"
+        searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController
         
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Düzenle", style: .done, target: self, action: #selector(buttonClicked))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Lists", style: .done, target: self, action: #selector(buttonClicked))
         
         
         let navBarAppearance = UINavigationBarAppearance()
