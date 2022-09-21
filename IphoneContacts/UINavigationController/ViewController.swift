@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         setupNavigationBar()
         setupTableView()
+        setupTableHeaderView()
         
         view.backgroundColor = .black
     }
@@ -74,6 +75,17 @@ class ViewController: UIViewController {
     @objc func buttonClicked() {
       
     }
+    
+    private func setupTableHeaderView() {
+        
+        let header = TableHeaderView(frame: .zero)
+        
+        var size = header.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        size.width = UIScreen.main.bounds.width
+        header.frame.size = size
+        
+        tableView.tableHeaderView = header
+    }
 }
 
 extension ViewController: UITableViewDataSource {
@@ -82,7 +94,7 @@ extension ViewController: UITableViewDataSource {
         cell.backgroundColor = .black
         cell.textLabel?.text = names[indexPath.row]
         cell.textLabel?.textColor = .white
-        
+    
         
         let bgColor = UIView()
         bgColor.backgroundColor = UIColor.darkGray
