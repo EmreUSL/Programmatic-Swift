@@ -12,14 +12,21 @@ class ViewController: UIViewController {
     var searchController = UISearchController()
     var tableView = UITableView()
    
-    let names = [ "Mark Gray" , "Hans Izabel" , "Marki Vladimir"]
+    let names = [ "Mark Gray" , "Hans Izabel" , "Marki Vladimir","Annie Marvy" , "Bucket Parkison", "Ana De Solores","Bella Jackson","David Attison","Zack Meriam","Emre Usul"]
+    var sectionTitle = [String]()
+    var nameDict = [String: [String]]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+    
         setupNavigationBar()
+        setupSection()
         setupTableView()
         setupTableHeaderView()
+        
+       
         
         view.backgroundColor = .black
     }
@@ -86,15 +93,21 @@ class ViewController: UIViewController {
         
         tableView.tableHeaderView = header
     }
+    
+    private func setupSection() {
+        sectionTitle = Array(Set(names.compactMap({String($0.prefix(1))})))
+        sectionTitle.sort()
+        sectionTitle.forEach({nameDict[$0] = [String]()})
+        names.forEach({nameDict[String($0.prefix(1))]?.append($0)})
+    }
 }
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.backgroundColor = .black
-        cell.textLabel?.text = names[indexPath.row]
+        cell.textLabel?.text = nameDict[sectionTitle[indexPath.section]]?[indexPath.row]
         cell.textLabel?.textColor = .white
-    
         
         let bgColor = UIView()
         bgColor.backgroundColor = UIColor.darkGray
@@ -104,8 +117,19 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return names.count
+        return nameDict[sectionTitle[section]]?.count ?? 0
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        sectionTitle.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        sectionTitle[section]
+    
+    }
+    
+    
 }
 
 extension ViewController: UITableViewDelegate {
