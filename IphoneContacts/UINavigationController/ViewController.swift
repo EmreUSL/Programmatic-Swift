@@ -12,7 +12,15 @@ class ViewController: UIViewController {
     var searchController = UISearchController()
     var tableView = UITableView()
    
-    let names = [ "Mark Gray" , "Hans Izabel" , "Marki Vladimir","Annie Marvy" , "Bucket Parkison", "Ana De Solores","Bella Jackson","David Attison","Zack Meriam","Emre Usul"]
+    
+    let names = [ "Mark Gray" , "Hans Izabel" , "Marki Vladimir","Annie Marvy" ,
+                  "Bucket Parkison", "Ana De Solores","Bella Jackson",
+                  "David Attison","Zack Meriam","Emre Usul",
+                  "Cylin Zagor" , "David Henderson" , "Frank Cuberg",
+                  "Guy Sorteg","Izabel Monica","Jack Sparrow","Katarine Polin",
+                  "Lori Sane","Narnia Bagin","Orkhan Mani","Ursula Sago","Vladimir Dosyeak",
+                  "Raskolnikov Simpson","Yareline Kora","Pete Marinson","Turk Muhsin"
+    ]
     var sectionTitle = [String]()
     var nameDict = [String: [String]]()
     
@@ -25,10 +33,13 @@ class ViewController: UIViewController {
         setupSection()
         setupTableView()
         setupTableHeaderView()
+      
+        
         
        
         
         view.backgroundColor = .black
+       
     }
     
     private func setupNavigationBar() {
@@ -43,7 +54,10 @@ class ViewController: UIViewController {
         navigationItem.searchController = searchController
         
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Lists", style: .done, target: self, action: #selector(buttonClicked))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Lists",
+                                                           style: .done, target: self,
+                                                           action: #selector(buttonClicked))
+        
         
         
         let navBarAppearance = UINavigationBarAppearance()
@@ -94,12 +108,13 @@ class ViewController: UIViewController {
         tableView.tableHeaderView = header
     }
     
-    private func setupSection() {
+    private func setupSection() {
         sectionTitle = Array(Set(names.compactMap({String($0.prefix(1))})))
         sectionTitle.sort()
         sectionTitle.forEach({nameDict[$0] = [String]()})
         names.forEach({nameDict[String($0.prefix(1))]?.append($0)})
     }
+
 }
 
 extension ViewController: UITableViewDataSource {
@@ -129,6 +144,10 @@ extension ViewController: UITableViewDataSource {
     
     }
     
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        sectionTitle.compactMap({$0})
+    }
+    
     
 }
 
@@ -137,3 +156,8 @@ extension ViewController: UITableViewDelegate {
         
     }
 }
+
+
+
+
+
